@@ -5,14 +5,41 @@ on: [push]
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repos: ["de-german"]
     steps:
-      - uses: actions/checkout@v2
+      - name: Fetch first repository
+        uses: actions/checkout@v2
         with:
           token: ${{ secrets.PAT }}
-          repository: solidity-docs-test/de-german
+          repository: solidity-docs-test/${{ matrix.repos }}
+
+      - name: debug step
+        run: |
+          pwd
+          ls -altrh
+
+      - name: Fetch second repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
+          repository: ethereum/solidity
+          path: solidity
+
+      - name: debug step2
+        run: |
+          pwd
+          ls -altrh
+          cp -r solidity/docs/* .
+          rm -rf solidity
+          ls -altrh
 
       - name: Make changes to pull request
-        run: date +%s > report.txt
+        run: |
+          date +%s > report.txt
+          pwd
+          ls -altrh
 
       - name: Create Pull Request
         id: cpr
@@ -20,12 +47,12 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           commit-message: Update report
-          committer: GitHub <noreply@github.com>
-          author: Bot <bot@users.noreply.github.com>
+          committer: Solidity-PR-Bot <piahoo+github.bot@gmail.com>
+          author: Solidity-PR-Bot <piahoo+github.bot@gmail.com>
           signoff: false
           branch: example-patches
           delete-branch: true
-          title: '[Example] Update report'
+          title: "[Example] Update report"
           body: |
             Update report
             - Updated with *today's* date
@@ -35,10 +62,8 @@ jobs:
           labels: |
             report
             automated pr
-          assignees: peter-evans
-          reviewers: peter-evans
+          assignees: Solidity-PR-Bot
+          reviewers: Solidity-PR-Bot
           team-reviewers: |
-            owners
-            maintainers
-          milestone: 1
+            o-lenczyk
           draft: false

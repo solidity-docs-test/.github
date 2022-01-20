@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
+          repository: solidity-docs-test/de-german
 
       - name: Make changes to pull request
         run: date +%s > report.txt
@@ -18,7 +21,7 @@ jobs:
           token: ${{ secrets.PAT }}
           commit-message: Update report
           committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          author: Bot <bot@users.noreply.github.com>
           signoff: false
           branch: example-patches
           delete-branch: true

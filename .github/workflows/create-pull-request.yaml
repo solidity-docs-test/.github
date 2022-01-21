@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        repos: ["de-german", "fa-persian"]
+        repos: ["ja-japanese", "fa-persian"]
     steps:
       - name: Fetch translation repository
         uses: actions/checkout@v2
@@ -29,7 +29,7 @@ jobs:
 
       - name: Merge repositories
         run: |
-          cp -r solidity/docs/* .
+          cp -r solidity/docs/* docs/
           rm -rf solidity
 
       - name: Create Pull Request

@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        repos: ["de-german"]
+        repos: ["de-german", "fa-persian"]
     steps:
       - name: Fetch translation repository
         uses: actions/checkout@v2

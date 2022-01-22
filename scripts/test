@@ -1,0 +1,11 @@
+pr_body<<EOF
+This PR was automatically generated.
+ 
+Merge changes from [solidity](https://github.com/ethereum/solidity)@develop
+The following files have conflicts and may need new translations: 
+ 
+Please fix the conflicts by pushing new commits to this pull request, either by editing the files directly on GitHub or by checking out this branch.
+ 
+## DO NOT SQUASH MERGE THIS PULL REQUEST!
+Doing so will erase the commits from main and cause them to show up as conflicts the next time we merge.
+EOF

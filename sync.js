@@ -88,7 +88,7 @@ const conflictFiles = conflictLines.map(line =>
     line.substr(line.lastIndexOf(' ') + 1),
 );
 
-shell.exec(`git commit -am "merging all conflicts"`);
+shell.exec(`git `);
 
 // If no conflicts, merge directly into main
 if (conflictFiles.length === 0) {

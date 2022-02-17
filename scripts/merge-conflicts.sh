@@ -1,11 +1,11 @@
 #!/bin/bash
-set -uo pipefail
+set -euo pipefail
 
-USERNAME=$1
-EMAIL=$2
+USERNAME="$1"
+EMAIL="$2"
 
-ORIGINAL_URL="https://github.com/ethereum/solidity.git"
-git remote add english "$ORIGINAL_URL"
+orginal_url="https://github.com/ethereum/solidity.git"
+git remote add english "$orginal_url"
 
 git config user.name "$USERNAME"
 git config user.email "$EMAIL"
@@ -18,7 +18,7 @@ sync_branch="sync-$(git describe --tags --always english/develop)"
 echo "::set-output name=branch_name::$sync_branch"
 
 # pull from ethereum/solidity develop
-git pull english develop --rebase=false --squash
+git pull english develop --rebase=false --squash || true
 
 # unstage everything
 git rm -r --cached .

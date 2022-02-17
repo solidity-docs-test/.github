@@ -26,3 +26,23 @@ Another option would be maintaining an up-to-date `en-english` repository as a t
 In either case, pull request workflow file has to be updated:
 - edit `.github/workflow/create-pull-request.yaml` 
 - add language code to `jobs.createPullRequest.strategy.matrix.repos`
+
+## How to transform translation repository to compatible form
+- clone solidity repository `git@github.com:ethereum/solidity.git`
+- rename solidity repository as translation repository, eg `id-indonesian`
+- remove everything but `docs/` directory
+- commit your changes
+- clone old translation repository, e.g. `git clone git@github.com:solidity-docs/id-indonesian.git id-indonesian-old`
+- if a translation repository has the wrong structure (root directory instead of `docs`), temporarily move all the files to the root directory and commit the change
+- go to translation repository and add a remote - old translation: `git remote add indonesian-old ../id-indonesian-old/`
+- fetch:   `git fetch indonesian-old`
+- cherry pick commits using range: `git cherry-pick --strategy=recursive -X theirs e21d0103978a4b2aa689b402e1ab8df922280dc2..02d9d2730445071228959b1d6b970f87299e423b`
+- move back everything to the `docs` directory and create a commit
+- create new GitHub repository
+- edit `.git/config` and change origin URL, eg:
+```
+  6 [remote "origin"]
+  7         url = git@github.com:solidity-docs-test/id-indonesian.git
+```
+- create branch main: `git checkout -b main`
+- push branch main: `git push origin main`

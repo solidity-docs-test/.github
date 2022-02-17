@@ -1,16 +1,17 @@
 name: daily docs sync PR
 
-on: push
+#on: push
+
+on:
+  schedule:
+    # Runs every second hour
+    - cron: "0 */2 * * *"
 
 env:
   BOT_USERNAME: HAL9300
   BOT_EMAIL: piahoo+github.bot@gmail.com
   GITHUB_REPOSITORY_OWNER: solidity-docs-test
-  GITHUB_REPOSITORY: .github
-  # comma separated list of assignees
-  ASSIGNEES: HAL9300
-  REVIEWERS: o-lenczyk
-  TEAM-REVIEWERS: o-lenczyk
+  # comma separated list of labels
   LABELS: sync,automated-pr
 
 jobs:
@@ -25,7 +26,7 @@ jobs:
       matrix:
         # This means, that all pull requests will be processed simultaneously
         # and independently of each other.
-        repos: ["pl-polish", "he-hebrew"]
+        repos: ["pl-polish", "he-hebrew", "id-indonesian"]
     steps:
       - name: Fetch translation repository
         uses: actions/checkout@v2
@@ -40,15 +41,15 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.PAT }}
-          repository: ${{ env.GITHUB_REPOSITORY_OWNER }}/${{ env.GITHUB_REPOSITORY}}
+          repository: ${{ github.repository }}
           path: .github-workflow
 
       - name: Prepare Pull Request
         id: prepare-pr
         run: |
-          ./.github-workflow/scripts/merge-conflicts.sh $BOT_USERNAME $BOT_EMAIL
-          ./.github-workflow/scripts/generate-PR-body.sh
-          ./.github-workflow/scripts/set-assignees.sh ${{ matrix.repos }}
+          .github-workflow/scripts/merge-conflicts.sh "$BOT_USERNAME" "$BOT_EMAIL"
+          .github-workflow/scripts/generate-PR-body.sh
+          .github-workflow/scripts/set-assignees.sh "${{ matrix.repos }}"
 
       - name: Remove this repository
         run: |
@@ -67,4 +68,3 @@ jobs:
           labels: "${{ env.LABELS }}"
           assignees: ${{ env.assignee }}
           reviewers: ${{ env.reviewer }}
-          team-reviewers: "${{ env.TEAM-REVIEWERS }}"

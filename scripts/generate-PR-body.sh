@@ -2,7 +2,7 @@
 set -euo pipefail
 
 function title {
-    echo "Sync with ethereum/solidity@develop $(date +%d-%m-%Y)"
+    echo "Sync with ethereum/solidity@$(git describe --tags --always english/develop) $(date -u +%Y-%m-%d)"
 }
 
 function pr_body {

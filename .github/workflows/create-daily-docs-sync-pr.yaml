@@ -26,7 +26,8 @@ jobs:
       matrix:
         # This means, that all pull requests will be processed simultaneously
         # and independently of each other.
-        repos: ["pl-polish", "he-hebrew", "id-indonesian", "fr-french"]
+        repos:
+          ["pl-polish", "he-hebrew", "id-indonesian", "fr-french", "es-spanish"]
     steps:
       - name: Fetch translation repository
         uses: actions/checkout@v2

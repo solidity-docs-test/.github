@@ -18,7 +18,7 @@ sync_branch="sync-$(git describe --tags --always english/develop)"
 echo "::set-output name=branch_name::$sync_branch"
 
 # check if sync branch exists
-if (git ls-remote --heads origin "$sync_branch") 
+if (git ls-remote --exit-code --heads origin "$sync_branch") 
 then
     branch_exists=true
     echo "sync_branch $sync_branch exists"

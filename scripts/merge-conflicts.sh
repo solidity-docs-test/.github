@@ -21,11 +21,11 @@ echo "::set-output name=branch_name::$sync_branch"
 if (git ls-remote --heads origin "$sync_branch") 
 then
     branch_exists=true
-    echo "sync_branch exists"
+    echo "sync_branch $sync_branch exists"
     echo $branch_exists
 else 
     branch_exists=false
-    echo "sync_branch does not exist"
+    echo "sync_branch $sync_branch does not exist"
     echo $branch_exists
 fi
 

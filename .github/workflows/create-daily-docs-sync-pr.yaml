@@ -1,11 +1,11 @@
 name: daily docs sync PR
 
-#on: push
+on: push
 
-on:
-  schedule:
-    # Runs every second hour
-    - cron: "0 */2 * * *"
+#on:
+#  schedule:
+#    # Runs every second hour
+#    - cron: "0 */2 * * *"
 
 env:
   BOT_USERNAME: HAL9300
@@ -64,6 +64,7 @@ jobs:
           rm -rf .github-workflow
 
       - name: Create Pull Request
+        if: ${{ steps.prepare-pr.outputs.branch_exists == false }}
         uses: peter-evans/create-pull-request@v3
         with:
           token: "${{ secrets.PAT }}"

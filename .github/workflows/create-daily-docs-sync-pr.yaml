@@ -5,7 +5,7 @@ name: daily docs sync PR
 on:
   schedule:
     # Runs every second hour
-    - cron: "0 */2 * * *"
+    - cron: "0 0 * * *"
 
 env:
   BOT_USERNAME: HAL9300
@@ -28,11 +28,6 @@ jobs:
         # and independently of each other.
         repos:
           [
-            "pl-polish",
-            "he-hebrew",
-            "id-indonesian",
-            "fr-french",
-            "es-spanish",
             "zh-chinese",
           ]
     steps:

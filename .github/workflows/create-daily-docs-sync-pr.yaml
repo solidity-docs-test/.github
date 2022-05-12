@@ -5,7 +5,7 @@ name: daily docs sync PR
 on:
   schedule:
     # Runs every second hour
-    - cron: "0 0 * * *"
+    - cron: "0 * * * *"
 
 env:
   BOT_USERNAME: HAL9300
@@ -26,10 +26,7 @@ jobs:
       matrix:
         # This means, that all pull requests will be processed simultaneously
         # and independently of each other.
-        repos:
-          [
-            "zh-chinese",
-          ]
+        repos: ["zh-chinese", "pl-polish"]
     steps:
       - name: Fetch translation repository
         uses: actions/checkout@v2

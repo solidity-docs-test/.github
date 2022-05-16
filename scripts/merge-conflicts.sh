@@ -32,7 +32,7 @@ fi
 echo "::set-output name=branch_exists::$branch_exists"
 
 # pull from ethereum/solidity develop
-git pull english develop --rebase=false --squash || true
+git pull english develop --rebase=false || true
 
 # unstage everything
 git rm -r --cached .
